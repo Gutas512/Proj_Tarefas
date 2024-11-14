@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuário</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0a19a3;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #0a19a3;
+            color: white;
+            font-size: 0.9em;
+            width: 100%;
+            margin-top: auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            margin: 40px auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .form-row .form-field {
+            width: 48%;
+        }
+        form input, form select {
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+        form button {
+            background-color: #0a19a3; /* Azul consistente com as outras páginas */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        form button:hover {
+            background-color: #05117a; /* Azul mais escuro */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        a {
+            text-decoration: none;
+            color: #0a19a3; /* Azul consistente com as outras páginas */
+            margin-top: 10px;
+            font-size: 1em;
+            text-align: center;
+        }
+        a:hover {
+            color: #05117a; /* Azul mais escuro */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bem-vindo ao Sistema de Gerenciamento de Usuários</h1>
+    </header>
+
+    <main>
+        <h1>Editar Usuário</h1>
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="usu_name">Nome</label>
+                    {{ form.usu_name }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="usu_email">E-mail</label>
+                    {{ form.usu_email }}
+                </div>
+            </div>
+
+            <button type="submit">Salvar Alterações</button>
+            <a href="{% url 'usuarios-list' %}">Cancelar</a>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Sistema de Gerenciamento de Usuários</p>
+    </footer>
+
+</body>
+</html>

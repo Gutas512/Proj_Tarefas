@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #0a19a3;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        main {
+            flex-grow: 1;
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 15px 0;
+        }
+        a {
+            display: inline-block;
+            color: white;
+            background-color: #0a19a3;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.2em;
+            padding: 15px 30px;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        a:hover {
+            background-color: #05117a;
+            transform: scale(1.05);
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #0a19a3;
+            color: white;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bem-vindo ao Sistema de Gerenciamento de Tarefas</h1>
+    </header>
+
+    <main>
+        <h2>Escolha uma opção abaixo para gerenciar:</h2>
+        <ul>
+            <li><a href="{% url 'usuarios-list' %}">Gerenciar Usuários</a></li>
+            <li><a href="{% url 'tarefas-list' %}">Gerenciar Tarefas</a></li>
+        </ul>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Sistema de Gerenciamento de tarefas</p>
+    </footer>
+
+</body>
+</html>

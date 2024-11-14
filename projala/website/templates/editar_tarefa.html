@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Tarefa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+        header {
+            background-color: #0a19a3;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        main {
+            width: 100%;
+            max-width: 800px; /* Limita a largura para que não fique muito larga */
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1{
+            color#fffff
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px; /* Limita a largura do formulário */
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .form-row .form-field {
+            width: 48%;
+        }
+        form input, form select {
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+        form button {
+            background-color: #0a19a3; /* Azul consistente com as outras páginas */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            width: 100%; /* Botão ocupa toda a largura do formulário */
+        }
+        form button:hover {
+            background-color: #05117a; /* Azul mais escuro */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        a {
+            text-decoration: none;
+            color: #0a19a3; /* Azul consistente com as outras páginas */
+            margin-top: 10px;
+            font-size: 1em;
+        }
+        a:hover {
+            color: #05117a; /* Azul mais escuro */
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #0a19a3;
+            color: white;
+            font-size: 0.9em;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bem-vindo ao Sistema de Gerenciamento de Tarefas</h1>
+    </header>
+
+    <main>
+        <h2>Editar Tarefa</h2>
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="tar_descricao">Descrição</label>
+                    {{ form.tar_descricao }}
+                </div>
+                <div class="form-field">
+                    <label for="tar_setor">Setor</label>
+                    {{ form.tar_setor }}
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="tar_prioridade">Prioridade</label>
+                    <select name="tar_prioridade" id="tar_prioridade">
+                        <option value="Alta" {% if form.tar_prioridade.value == "Alta" %}selected{% endif %}>Alta</option>
+                        <option value="Média" {% if form.tar_prioridade.value == "Média" %}selected{% endif %}>Média</option>
+                        <option value="Baixa" {% if form.tar_prioridade.value == "Baixa" %}selected{% endif %}>Baixa</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="tar_status">Status</label>
+                    <select name="tar_status" id="tar_status">
+                        <option value="Pendente" {% if form.tar_status.value == "Pendente" %}selected{% endif %}>Pendente</option>
+                        <option value="Fazendo" {% if form.tar_status.value == "Fazendo" %}selected{% endif %}>Fazendo</option>
+                        <option value="Concluído" {% if form.tar_status.value == "Concluído" %}selected{% endif %}>Concluído</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="tar_data">Data</label>
+                    <input type="date" name="tar_data" id="tar_data" value="{{ form.tar_data.value|default:'' }}">
+                </div>
+                <div class="form-field">
+                    <label for="usu_codigo">Usuário</label>
+                    {{ form.usu_codigo }}
+                </div>
+            </div>
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+
+        <a href="{% url 'tarefas-list' %}">Cancelar</a>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Sistema de Gerenciamento de Tarefas</p>
+    </footer>
+
+</body>
+</html>

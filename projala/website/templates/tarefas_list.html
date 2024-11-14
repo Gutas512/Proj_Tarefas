@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #0a19a3;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+        .header-buttons a {
+            text-decoration: none;
+            padding: 10px 15px;
+            color: white;
+            background-color: #05117a;
+            border-radius: 5px;
+        }
+        h1{
+            color: #ffffff;
+        }
+        h2 {
+            color: #333;
+        }
+        .columns {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+        .column {
+            width: 35%; /* Reduzi o tamanho da coluna */
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+        }
+        .column h2 {
+            text-align: center;
+            color: #0a19a3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 6px; /* Reduzi o padding das células */
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+            font-size: 0.9em; /* Diminui a fonte */
+        }
+        th {
+            background-color: #0a19a3;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .actions a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: white;
+            margin-right: 5px;
+            font-size: 0.8em;
+        }
+        .actions .edit { background-color: #4CAF50; }
+        .actions .delete { background-color: #f44336; }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #0a19a3;
+            color: white;
+            font-size: 0.9em;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bem-vindo ao Sistema de Gerenciamento de Tarefas</h1>
+    </header>
+
+    <div class="header-buttons">
+        <a href="{% url 'home' %}">Voltar para Home</a>
+        <a href="{% url 'cadastrar-tarefa' %}">Cadastrar Tarefa</a>
+    </div>
+
+    <h2 style="text-align: center; margin-top: 20px;">Lista de Tarefas</h2>
+
+    <div class="columns">
+        <!-- Coluna Pendente -->
+        <div class="column">
+            <h2>Pendente</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Descrição</th>
+                        <th style="width: 15%;">Setor</th>
+                        <th style="width: 15%;">Prioridade</th>
+                        <th style="width: 15%;">Data</th>
+                        <th style="width: 20%;">Usuário</th>
+                        <th style="width: 10%;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tarefa in tarefas %}
+                        {% if tarefa.tar_status == 'Pendente' %}
+                        <tr>
+                            <td>{{ tarefa.tar_descricao }}</td>
+                            <td>{{ tarefa.tar_setor }}</td>
+                            <td>{{ tarefa.tar_prioridade }}</td>
+                            <td>{{ tarefa.tar_data }}</td>
+                            <td>{{ tarefa.usu_codigo.usu_name }}</td>
+                            <td class="actions">
+                                <a href="{% url 'editar-tarefa' tarefa.pk %}" class="edit">Editar</a>
+                                <a href="{% url 'excluir-tarefa' tarefa.pk %}" class="delete">Excluir</a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" style="text-align:center;">Nenhuma tarefa pendente</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Coluna Fazendo -->
+        <div class="column">
+            <h2>Fazendo</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Descrição</th>
+                        <th style="width: 15%;">Setor</th>
+                        <th style="width: 15%;">Prioridade</th>
+                        <th style="width: 15%;">Data</th>
+                        <th style="width: 20%;">Usuário</th>
+                        <th style="width: 10%;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tarefa in tarefas %}
+                        {% if tarefa.tar_status == 'Fazendo' %}
+                        <tr>
+                            <td>{{ tarefa.tar_descricao }}</td>
+                            <td>{{ tarefa.tar_setor }}</td>
+                            <td>{{ tarefa.tar_prioridade }}</td>
+                            <td>{{ tarefa.tar_data }}</td>
+                            <td>{{ tarefa.usu_codigo.usu_name }}</td>
+                            <td class="actions">
+                                <a href="{% url 'editar-tarefa' tarefa.pk %}" class="edit">Editar</a>
+                                <a href="{% url 'excluir-tarefa' tarefa.pk %}" class="delete">Excluir</a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" style="text-align:center;">Nenhuma tarefa em andamento</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Coluna Concluído -->
+        <div class="column">
+            <h2>Concluído</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Descrição</th>
+                        <th style="width: 15%;">Setor</th>
+                        <th style="width: 15%;">Prioridade</th>
+                        <th style="width: 15%;">Data</th>
+                        <th style="width: 20%;">Usuário</th>
+                        <th style="width: 10%;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tarefa in tarefas %}
+                        {% if tarefa.tar_status == 'Concluído' %}
+                        <tr>
+                            <td>{{ tarefa.tar_descricao }}</td>
+                            <td>{{ tarefa.tar_setor }}</td>
+                            <td>{{ tarefa.tar_prioridade }}</td>
+                            <td>{{ tarefa.tar_data }}</td>
+                            <td>{{ tarefa.usu_codigo.usu_name }}</td>
+                            <td class="actions">
+                                <a href="{% url 'editar-tarefa' tarefa.pk %}" class="edit">Editar</a>
+                                <a href="{% url 'excluir-tarefa' tarefa.pk %}" class="delete">Excluir</a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" style="text-align:center;">Nenhuma tarefa concluída</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Sistema de Gerenciamento de Tarefas</p>
+    </footer>
+
+</body>
+</html>
