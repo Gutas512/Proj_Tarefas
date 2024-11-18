@@ -6,8 +6,6 @@ urlpatterns = [
 
     path('home/', HomePageView.as_view(), name='home'),
 
-    path('Tarefas/', TarefasPageView.as_view(), name='Tarefas'),
-
     path('usuarios/', lista_usuarios.as_view(), name='usuarios-list'),
     path('tarefas/', lista_tarefas.as_view(), name='tarefas-list'),
 
